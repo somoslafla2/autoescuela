@@ -6,6 +6,7 @@
 
 package modelo.alumnodao.interfaces;
 
+import ester.autoescuela.factoriaAlumnos.alumno.Alumno;
 import java.sql.Connection;
 
 /**
@@ -13,5 +14,5 @@ import java.sql.Connection;
  * @author Formacion
  */
 public interface Update {
-    boolean update(Connection con);
+    boolean update(Connection con, int id, Alumno alumno);
 }

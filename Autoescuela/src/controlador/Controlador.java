@@ -11,7 +11,7 @@ import ester.autoescuela.factoriaAlumnos.factoria.CreadorAlumnoDistancia;
 import ester.autoescuela.factoriaAlumnos.factoria.CreadorAlumnoPresencial;
 import ester.autoescuela.factoriaAlumnos.factoria.FactoriaAlumnado;
 import ester.autoescuela.tipocarnet.TipoCarnet;
-import java.sql.Date;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import modelo.AlumnoDAO;
@@ -27,12 +27,16 @@ public class Controlador {
 
     private ConexionAutoescuela conexion;
     private InterfazVista vista;
+    private AlumnoDAO aDAO;
+    private MatriculaDAO mDAO;
 
     public Controlador() {
     }
     
     public Controlador(ConexionAutoescuela conexion) {
         this.conexion = conexion;
+        aDAO = new AlumnoDAO(new HashSet());
+        mDAO = new MatriculaDAO();
     }
     
     public void setVista(InterfazVista vista) {
@@ -63,12 +67,10 @@ public class Controlador {
         
         int id= 0;
         if (a != null && c!=null){
-            AlumnoDAO dao = new AlumnoDAO(new HashSet());
-            id = dao.create(conexion.getConexion(),a);    
+            id = aDAO.create(conexion.getConexion(),a);    
             if (id != -1){
                 // Insertar el carnet
-                MatriculaDAO mdao = new MatriculaDAO();
-                mdao.crearMatricula(conexion.getConexion(),id, c);
+                mDAO.crearMatricula(conexion.getConexion(),id, c);
                 vista.setId(id);
             }
         }
@@ -77,29 +79,49 @@ public class Controlador {
     
     public boolean borrar(){
         String dni = vista.getDNI();
-        MatriculaDAO mdao = new MatriculaDAO();
-        AlumnoDAO dao = new AlumnoDAO(new HashSet());
         // Se obtiene el id de la tabla del alumno que se quiere eliminar
-        int id = dao.getID(conexion.getConexion(), dni);
+        int id = aDAO.getID(conexion.getConexion(), dni);
         // Se eliminan las referencias de ese alumno
-        if(mdao.borrar(conexion.getConexion(), id))
+        if(mDAO.borrar(conexion.getConexion(), id))
             //Se elimina el alumno
-            return dao.delete(conexion.getConexion(), id);
+            return aDAO.delete(conexion.getConexion(), id);
         return false;
     }
     
     public void consultar(){
-        AlumnoDAO dao = new AlumnoDAO(new HashSet());
-        String resultado = dao.resultTodo(conexion.getConexion());
+        String resultado = aDAO.resultTodo(conexion.getConexion());
         System.out.println(resultado);
     }
     
     public void consultarPorDNI(){
         String dni = vista.getDNI();
-        MatriculaDAO mdao = new MatriculaDAO();
-        AlumnoDAO dao = new AlumnoDAO(new HashSet());
         // Se obtiene el id de la tabla del alumno que se quiere eliminar
-        dao.resultAlumno(conexion.getConexion(), dni);
-        
+        aDAO.resultAlumno(conexion.getConexion(), dni);
+        aDAO.showAlumno();
     }
+    
+    public void actualizar(){
+        consultarPorDNI();
+//        int id = aDAO.getID(conexion.getConexion(), vista.getDNI());
+        Collection<Alumno> alumnos = aDAO.getAlumnos();
+        Alumno [] a = new Alumno[alumnos.size()];
+        a = alumnos.toArray(a);
+        
+        String nombre = vista.getNombre();
+        String ap1 = vista.getAp1();
+        String ap2 = vista.getAp2();
+        String dni = vista.getDNI();
+        String tlf = vista.getTlfn();
+        boolean pres = vista.getPresencial();
+        FactoriaAlumnado fabrica;
+        if (pres)
+            fabrica = new CreadorAlumnoPresencial();
+        else
+            fabrica = new CreadorAlumnoDistancia();
+        
+        Alumno aNuevo = fabrica.crearAlumno(nombre, ap1, ap2, dni, tlf, 
+                a[0].getFechaNacimiento());
+        aDAO.update(conexion.getConexion(),a[0],aNuevo);
+    }
+    
 }

@@ -51,6 +51,7 @@ public class AssetMenu {
         
         action = () -> { 
             System.out.println("Actualizo los datos de un alumno de la autoescuela\n");
+            controlador.actualizar();
             return m;
         };
         m.createOption("2. Actualizar Alumno", action);

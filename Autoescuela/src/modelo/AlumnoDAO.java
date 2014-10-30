@@ -7,6 +7,7 @@
 package modelo;
 
 import ester.autoescuela.factoriaAlumnos.alumno.Alumno;
+import ester.autoescuela.factoriaAlumnos.alumno.AlumnoPresencial;
 import ester.autoescuela.factoriaAlumnos.factoria.CreadorAlumnoDistancia;
 import ester.autoescuela.factoriaAlumnos.factoria.CreadorAlumnoPresencial;
 import ester.autoescuela.factoriaAlumnos.factoria.FactoriaAlumnado;
@@ -17,6 +18,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import modelo.alumnodao.lambdas.CreateLambda;
 import modelo.alumnodao.lambdas.DeleteLambda;
 import modelo.alumnodao.lambdas.ResultIDLambda;
@@ -95,8 +97,12 @@ public class AlumnoDAO {
         return true;
     }
     
-    public boolean update(Connection con, Alumno alumno){
-        return UpdateLambda.UPDATE_LAMBDA.update(con);
+    public boolean update(Connection con, Alumno alumno, Alumno aNuevo){
+        int id = getID(con, alumno.getDni());
+        alumnos.clear();
+        boolean resultAlumno = resultAlumno(con, alumno.getDni());
+        
+        return UpdateLambda.UPDATE_LAMBDA.update(con,id,aNuevo);
     }
     
     public boolean delete (Connection con, int id){
@@ -105,5 +111,19 @@ public class AlumnoDAO {
     
     public int getID(Connection con, String dni){
         return ResultIDLambda.RESULT_ID.result(con, dni);
+    }
+    
+    public void showAlumno(){
+        if (alumnos.size() == 1)
+            System.out.println("---------------------------------------------");
+            for (Alumno alumno : alumnos) {
+                System.out.println("Nombre: "+alumno.getNombre());
+                System.out.println("Apellidos: " + alumno.getApellido1() + " " + alumno.getApellido2());
+                System.out.println("DNI: "+alumno.getDni());
+                System.out.println("Telefono: "+alumno.getTelefono());
+                System.out.println("Tipo: "+((alumno instanceof AlumnoPresencial)?"PRESENCIAL":"A DISTANCIA"));
+                System.out.println("Fecha: "+alumno.getFechaNacimiento().getTime());
+            }
+            System.out.println("---------------------------------------------");
     }
 }
