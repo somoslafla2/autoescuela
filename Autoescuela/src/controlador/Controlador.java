@@ -98,6 +98,8 @@ public class Controlador {
         // Se obtiene el id de la tabla del alumno que se quiere eliminar
         aDAO.resultAlumno(conexion.getConexion(), dni);
         aDAO.showAlumno();
+        int id = aDAO.getID(conexion.getConexion(), dni);
+        System.out.println(mDAO.consultar(conexion.getConexion(), id));
     }
     
     public void actualizar(){

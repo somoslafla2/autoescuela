@@ -9,8 +9,11 @@ package modelo;
 import ester.autoescuela.tipocarnet.TipoCarnet;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import modelo.alumnodao.lambdas.ResultLambda;
 import modelo.matriculadao.lambdas.CreateLambdaMatricula;
 import modelo.matriculadao.lambdas.DeleteLambdaMatricula;
+import modelo.matriculadao.lambdas.ResultLambdaMatricula;
 
 /**
  *
@@ -25,8 +28,18 @@ public class MatriculaDAO {
         return DeleteLambdaMatricula.DELETE_MATRICULA.delete(con, id);
     }
     
-    public ResultSet consultar(Connection con, int id){
-        return null;
+    public String consultar(Connection con, int id){
+        String resultado = "";
+        try (ResultSet rs = ResultLambdaMatricula.RESULT_MATRICULA.consultar(con,id)){
+            resultado += "MATRICULAS ------------\n";
+            while(rs.next()){
+                resultado+="- "+rs.getString("TIPOCARNET")+" "+
+                        rs.getDate("FECHAALTA")+" "+rs.getFloat("PRECIO")+"\n";
+            }
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return resultado;
     }
     
     public boolean actualizar(Connection con, int id, TipoCarnet c, boolean acabado){

@@ -6,10 +6,13 @@
 
 package modelo.matriculadao.interfaces;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+
 /**
  *
  * @author Formacion
  */
 public interface ResultMatricula {
-    
+    ResultSet consultar(Connection con, int id);
 }
