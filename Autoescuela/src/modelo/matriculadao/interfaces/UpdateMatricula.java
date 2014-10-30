@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.delete;
-
-import java.sql.Connection;
+package modelo.matriculadao.interfaces;
 
 /**
  *
  * @author Formacion
  */
-public interface Delete {
-    boolean delete(Connection con, int id);
+public interface UpdateMatricula {
+    
 }

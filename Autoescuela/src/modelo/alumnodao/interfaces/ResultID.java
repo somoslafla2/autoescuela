@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.matricula;
+package modelo.alumnodao.interfaces;
 
+import ester.autoescuela.factoriaAlumnos.alumno.Alumno;
 import java.sql.Connection;
 
 /**
  *
  * @author Oscar
  */
-public interface DeleteMatricula {
-    boolean delete(Connection con, int id);
+public interface ResultID {
+    int result(Connection con, String dni);
 }

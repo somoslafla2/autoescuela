@@ -9,8 +9,8 @@ package modelo;
 import ester.autoescuela.tipocarnet.TipoCarnet;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import modelo.lambda.matricula.CreateLambda;
-import modelo.lambda.matricula.DeleteLambdaMatricula;
+import modelo.matriculadao.lambdas.CreateLambdaMatricula;
+import modelo.matriculadao.lambdas.DeleteLambdaMatricula;
 
 /**
  *
@@ -18,7 +18,7 @@ import modelo.lambda.matricula.DeleteLambdaMatricula;
  */
 public class MatriculaDAO {
     public boolean crearMatricula(Connection con, int id, TipoCarnet c){
-        return CreateLambda.CREATE_MATRICULA.create(con, id, c);
+        return CreateLambdaMatricula.CREATE_MATRICULA.create(con, id, c);
     }
     
     public boolean borrar(Connection con, int id){

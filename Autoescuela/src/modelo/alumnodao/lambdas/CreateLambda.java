@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.create;
+package modelo.alumnodao.lambdas;
 
 import ester.autoescuela.factoriaAlumnos.alumno.AlumnoPresencial;
 import java.sql.CallableStatement;
@@ -21,7 +21,7 @@ import java.util.GregorianCalendar;
 public class CreateLambda {
     private static final String LLAMADA_INSERTAR = "{? = call addalumno(?,?,?,?,?,?,?)}";
     
-    public static modelo.lambda.alumno.create.Create CREATE_ALUMNO = (conexion, alumno) -> {
+    public static modelo.alumnodao.interfaces.Create CREATE_ALUMNO = (conexion, alumno) -> {
         int id = -1;
         try{
             CallableStatement llamada = conexion.prepareCall(LLAMADA_INSERTAR,ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);

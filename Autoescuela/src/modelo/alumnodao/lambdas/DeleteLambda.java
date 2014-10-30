@@ -4,31 +4,34 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.matricula;
+package modelo.alumnodao.lambdas;
 
+import modelo.alumnodao.interfaces.Delete;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
  *
- * @author Oscar
+ * @author Formacion
  */
-public class DeleteLambdaMatricula {
-    public static DeleteMatricula DELETE_MATRICULA = (con, id)->{
-        try {
-            String SQL = "DELETE FROM MATRICULALUMNO WHERE IDALUMNO=?";
+public class DeleteLambda {
+    
+    public static Delete DELETE_LAMBDA = (con,id) -> {
+        try{
+            String SQL = "DELETE FROM ALUMNO WHERE IDALUMNO=?";
             PreparedStatement ps = con.prepareStatement(SQL, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
             
-            ps.setInt(1, id);
+            ps.setInt(1,id);
             
-            int filas;
-            // Si no hay filas afectadas => No existen referencias en ela tabla al alumno
-            if ((filas = ps.executeUpdate())==0)
+            int filas = ps.executeUpdate();
+            
+            if (filas == 0) // NO EXISTE EL ID EN LA TABLA ALUMNO
                 return false;
             
             ps.close();
-        } catch (SQLException e) {
+        } catch(SQLException ex){
+            ex.printStackTrace();
         }
         return true;
     };

@@ -17,11 +17,11 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import modelo.lambda.alumno.create.CreateLambda;
-import modelo.lambda.alumno.delete.DeleteLambda;
-import modelo.lambda.alumno.result.ResultIDLambda;
-import modelo.lambda.alumno.result.ResultLambda;
-import modelo.lambda.alumno.update.UpdateLambda;
+import modelo.alumnodao.lambdas.CreateLambda;
+import modelo.alumnodao.lambdas.DeleteLambda;
+import modelo.alumnodao.lambdas.ResultIDLambda;
+import modelo.alumnodao.lambdas.ResultLambda;
+import modelo.alumnodao.lambdas.UpdateLambda;
 
 /**
  *

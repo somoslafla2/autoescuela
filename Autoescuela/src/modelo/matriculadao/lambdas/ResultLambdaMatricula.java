@@ -4,15 +4,12 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.result;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
+package modelo.matriculadao.lambdas;
 
 /**
  *
  * @author Formacion
  */
-public interface Result {
-    ResultSet consultarTodo(Connection con);
+public class ResultLambdaMatricula {
+    
 }

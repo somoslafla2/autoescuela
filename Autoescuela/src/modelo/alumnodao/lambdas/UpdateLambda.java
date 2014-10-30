@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.update;
+package modelo.alumnodao.lambdas;
+
+import modelo.alumnodao.interfaces.Update;
 
 /**
  *

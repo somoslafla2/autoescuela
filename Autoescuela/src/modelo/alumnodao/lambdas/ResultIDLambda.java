@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.result;
+package modelo.alumnodao.lambdas;
 
+import modelo.alumnodao.interfaces.ResultID;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

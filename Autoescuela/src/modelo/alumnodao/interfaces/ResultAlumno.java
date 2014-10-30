@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.result;
+package modelo.alumnodao.interfaces;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

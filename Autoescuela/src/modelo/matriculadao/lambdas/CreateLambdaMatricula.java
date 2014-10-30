@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.matricula;
+package modelo.matriculadao.lambdas;
 
+import modelo.matriculadao.interfaces.CreateMatricula;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
  *
  * @author Formacion
  */
-public class CreateLambda {
+public class CreateLambdaMatricula {
     public static CreateMatricula CREATE_MATRICULA = (con,id,carnet) -> {
         try{
             String SQL = "{call addmatricula(?,?,?)}";

@@ -4,14 +4,15 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.update;
+package modelo.alumnodao.interfaces;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 
 /**
  *
  * @author Formacion
  */
-public interface Update {
-    boolean update(Connection con);
+public interface Result {
+    ResultSet consultarTodo(Connection con);
 }

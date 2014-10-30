@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package modelo.lambda.alumno.result;
+package modelo.matriculadao.interfaces;
 
-import ester.autoescuela.factoriaAlumnos.alumno.Alumno;
+import ester.autoescuela.tipocarnet.TipoCarnet;
 import java.sql.Connection;
 
 /**
  *
- * @author Oscar
+ * @author Formacion
  */
-public interface ResultID {
-    int result(Connection con, String dni);
+public interface CreateMatricula {
+    boolean create(Connection con, int id, TipoCarnet c);
 }
