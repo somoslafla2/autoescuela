@@ -6,17 +6,26 @@
 
 package controlador;
 
+import ester.autoescuela.carnet.TipoCarnet;
+import ester.autoescuela.excepciones.AlumnoMalFormado;
 import ester.autoescuela.factoriaAlumnos.alumno.Alumno;
 import ester.autoescuela.factoriaAlumnos.factoria.CreadorAlumnoDistancia;
 import ester.autoescuela.factoriaAlumnos.factoria.CreadorAlumnoPresencial;
 import ester.autoescuela.factoriaAlumnos.factoria.FactoriaAlumnado;
-import ester.autoescuela.tipocarnet.TipoCarnet;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import modelo.AlumnoDAO;
+import modelo.MatriculaAlumno;
 import modelo.MatriculaDAO;
 import modelo.conexion.ConexionAutoescuela;
+import modelo.lambdas.CreateLambda;
+import modelo.lambdas.DeleteLambda;
+import modelo.lambdas.ResultLambda;
 import vista.InterfazVista;
 
 /**
@@ -44,11 +53,6 @@ public class Controlador {
     }
     
     public void crearAlumno(){
-        String nombre = vista.getNombre();
-        String ap1 = vista.getAp1();
-        String ap2 = vista.getAp2();
-        String dni = vista.getDNI();
-        String tlf = vista.getTlfn();
         boolean pres = vista.getPresencial();
         FactoriaAlumnado fabrica;
         
@@ -56,54 +60,48 @@ public class Controlador {
             fabrica = new CreadorAlumnoPresencial();
         else
             fabrica = new CreadorAlumnoDistancia();
-        int dia = vista.getDia();
-        int mes = vista.getMes();
-        int annio = vista.getAnio();
         
-        Alumno a = fabrica.crearAlumno(nombre, ap1, ap2, dni, tlf, 
-                new GregorianCalendar(annio, mes, dia));
-        
+        Alumno a = null;
+        try {
+            a = fabrica.crearAlumno(vista.getNombre(), vista.getAp1(), vista.getAp2(), vista.getDNI(), vista.getTlfn(), 
+                    new GregorianCalendar(vista.getAnio(), vista.getMes()-1, vista.getDia()));
+            System.out.println(a.fechaToString());
+        } catch (AlumnoMalFormado ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
+               
         TipoCarnet c = vista.getCarnet();
         
-        int id= 0;
-        if (a != null && c!=null){
-            id = aDAO.create(conexion.getConexion(),a);    
-            if (id != -1){
-                // Insertar el carnet
-                mDAO.crearMatricula(conexion.getConexion(),id, c);
-                vista.setId(id);
-            }
-        }
+        MatriculaAlumno mA = new MatriculaAlumno(a, new ArrayList());
+        mA.add(c);
+        
+        
+        int id = aDAO.create(CreateLambda.CREAR2,conexion.getConexion(), mA);
+        if (id != -1)
+            vista.setId(id);
     }
     
     
     public boolean borrar(){
-        String dni = vista.getDNI();
-        // Se obtiene el id de la tabla del alumno que se quiere eliminar
-        int id = aDAO.getID(conexion.getConexion(), dni);
-        // Se eliminan las referencias de ese alumno
-        if(mDAO.borrar(conexion.getConexion(), id))
-            //Se elimina el alumno
-            return aDAO.delete(conexion.getConexion(), id);
-        return false;
+        return aDAO.delete(DeleteLambda.DELETE,conexion.getConexion(), vista.getDNI());
     }
     
     public void consultar(){
-        String resultado = aDAO.resultTodo(conexion.getConexion());
+        String resultado = aDAO.resultTodo(ResultLambda.CONSULTAR_TODO,conexion.getConexion());
         System.out.println(resultado);
     }
     
-    public void consultarPorDNI(){
-        String dni = vista.getDNI();
+    public void consultar(String dni){
+        dni = vista.getDNI();
         // Se obtiene el id de la tabla del alumno que se quiere eliminar
-        aDAO.resultAlumno(conexion.getConexion(), dni);
-        aDAO.showAlumno();
-        int id = aDAO.getID(conexion.getConexion(), dni);
-        System.out.println(mDAO.consultar(conexion.getConexion(), id));
+//        aDAO.resultAlumno(conexion.getConexion(), dni);
+//        aDAO.showAlumno();
+//        int id = aDAO.getID(conexion.getConexion(), dni);
+//        System.out.println(mDAO.consultar(conexion.getConexion(), id));
     }
     
     public void actualizar(){
-        consultarPorDNI();
+        consultar(vista.getDNI());
 //        int id = aDAO.getID(conexion.getConexion(), vista.getDNI());
         Collection<Alumno> alumnos = aDAO.getAlumnos();
         Alumno [] a = new Alumno[alumnos.size()];
@@ -121,8 +119,12 @@ public class Controlador {
         else
             fabrica = new CreadorAlumnoDistancia();
         
-        Alumno aNuevo = fabrica.crearAlumno(nombre, ap1, ap2, dni, tlf, 
-                a[0].getFechaNacimiento());
+        Alumno aNuevo = null;
+        try {
+            aNuevo = fabrica.crearAlumno(nombre, ap1, ap2, dni, tlf, (GregorianCalendar) a[0].getFechaNacimiento());
+        } catch (AlumnoMalFormado ex) {
+            Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
+        }
         aDAO.update(conexion.getConexion(),a[0],aNuevo);
     }
     

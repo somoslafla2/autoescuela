@@ -7,8 +7,8 @@
 package vista;
 
 import controlador.Controlador;
+import ester.autoescuela.carnet.TipoCarnet;
 
-import ester.autoescuela.tipocarnet.TipoCarnet;
 import vista.oscar.autoescuela.entradaConsola.EntradaConsola;
 
 /**

@@ -298,6 +298,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Mostrar todo"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonMostrarTodoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

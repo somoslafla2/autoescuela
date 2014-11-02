@@ -4,12 +4,11 @@
  * and open the template in the editor.
  */
 
-package modelo.matriculadao.lambdas;
+package modelo.interfaces;
 
 /**
  *
- * @author Formacion
+ * @author Oscar
  */
-public class UpdateLambdaMatricula {
-    
+public interface Delete<T, R> extends CRUD<T,R>{
 }

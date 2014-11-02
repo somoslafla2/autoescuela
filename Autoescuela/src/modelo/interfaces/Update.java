@@ -4,15 +4,12 @@
  * and open the template in the editor.
  */
 
-package modelo.matriculadao.interfaces;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
+package modelo.interfaces;
 
 /**
  *
- * @author Formacion
+ * @author Oscar
  */
-public interface ResultMatricula {
-    ResultSet consultar(Connection con, int id);
+public interface Update<T,R> extends CRUD<T,R>{
+    
 }

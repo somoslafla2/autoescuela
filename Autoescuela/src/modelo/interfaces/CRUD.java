@@ -4,15 +4,14 @@
  * and open the template in the editor.
  */
 
-package modelo.alumnodao.interfaces;
+package modelo.interfaces;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 
 /**
  *
- * @author Formacion
+ * @author Oscar
  */
-public interface ResultAlumno {
-    ResultSet consultarAlumno(Connection con, String dni);
+public abstract interface CRUD<T,R> {
+    abstract R accion(Connection con, T elem);
 }

@@ -6,8 +6,7 @@
 package autoescuelaswing;
 
 import controlador.Controlador;
-import ester.autoescuela.tipocarnet.TipoCarnet;
-import java.awt.event.ActionListener;
+import ester.autoescuela.carnet.TipoCarnet;
 import modelo.conexion.ConexionAutoescuela;
 import vista.InterfazVista;
 
@@ -18,7 +17,7 @@ import vista.InterfazVista;
 public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista {
 
     private static final long serialVersionUID = -612577678585684133L;
-    Controlador controlador;
+    private Controlador controlador;
 
     /**
      * Creates new form GestionAlumno
@@ -249,6 +248,11 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
         jButtonBorrar.setText("Borrar");
 
         jButtonMostrarTodo.setText("Mostrar todo");
+        jButtonMostrarTodo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMostrarTodoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotonesLayout = new javax.swing.GroupLayout(jPanelBotones);
         jPanelBotones.setLayout(jPanelBotonesLayout);
@@ -319,6 +323,11 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
     private void jTextFieldPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldPrecioActionPerformed
+
+    private void jButtonMostrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMostrarTodoActionPerformed
+        // TODO add your handling code here:
+        controlador.consultar();
+    }//GEN-LAST:event_jButtonMostrarTodoActionPerformed
 
     /**
      * @param args the command line arguments

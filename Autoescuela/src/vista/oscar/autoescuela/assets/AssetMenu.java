@@ -87,7 +87,7 @@ public class AssetMenu {
         
         action = () -> {
             System.out.println("Consulto por algun criterio");
-            controlador.consultarPorDNI();
+            controlador.consultar("");
             return m;  
         };
         m.createOption("1. Consultar por DNI", action);
