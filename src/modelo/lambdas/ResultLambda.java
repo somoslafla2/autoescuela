@@ -40,11 +40,16 @@ public class ResultLambda {
         return rs;
     };
     
+    /**
+     * CONSULTAR_ALUMNO 
+     * Devuelve una MatriculaAlumno
+     */
     public static Result<Integer,MatriculaAlumno> CONSULTAR_ALUMNO = (Connection con, Integer id)->{
         MatriculaAlumno ma = null;
         CallableStatement llamada;
         try{
-            llamada = con.prepareCall("{?=call SACAR(?,?,?,?,?,?,?)}", ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+            llamada = con.prepareCall(Llamadas.SACAR_ALUMNO_ID, 
+                    ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 
             llamada.registerOutParameter(1, Types.VARCHAR);
             llamada.setInt(2, id);
@@ -84,7 +89,8 @@ public class ResultLambda {
                 c.setTime(rs.getDate("FECHAALTA"));
                 ma.setFechaAlta(c);
             }
-            
+            rs.close();
+            llamada.close();
         }catch(SQLException ex){
             ex.printStackTrace();
         }

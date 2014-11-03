@@ -20,13 +20,10 @@ import modelo.llamadas.Llamadas;
 public class DeleteLambda {
     public static Delete<Integer, Boolean> DELETE = (Connection con, Integer id)->{
         boolean exito = false;
-        try {
-            CallableStatement llamada = con.prepareCall(Llamadas.BORRAR_ALUMNO,
-                    ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        
+        try (CallableStatement llamada = con.prepareCall(Llamadas.BORRAR_ALUMNO,
+                    ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE)){
             //Damos valor a los argumentos
-             llamada.setInt(1, id); // recoger el id
-
+            llamada.setInt(1, id); // recoger el id
 
             int filas_afectadas = llamada.executeUpdate();
             System.out.println("las filas afectadas son: " + filas_afectadas);
