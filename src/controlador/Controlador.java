@@ -84,17 +84,17 @@ public class Controlador {
         vista.show(resultado);
     }
     
-    public boolean consultar(String dni){
+    public MatriculaAlumno consultar(String dni){
         if (dni==null)
             dni = vista.getDNI();
         
         MatriculaAlumno ma = aDAO.resultAlumno(ResultLambda.CONSULTAR_ALUMNO,conexion.getConexion(), dni);
         if(ma != null){
-            vista.show(ma);
-            return true;
+            //vista.show(ma);
+            return ma;
             
         }
-        return false;
+        return null;
 //        aDAO.showAlumno();
 //        int id = aDAO.getID(conexion.getConexion(), dni);
 //        System.out.println(mDAO.consultar(conexion.getConexion(), id));
@@ -102,7 +102,7 @@ public class Controlador {
     
     public void actualizar(){
         String dni = vista.getDNI();
-        if (consultar(dni)){
+        //if (consultar(dni)){
             String nombre = vista.getNombre();
             String ap1 = vista.getAp1();
             String ap2 = vista.getAp2();
@@ -123,7 +123,11 @@ public class Controlador {
                 Logger.getLogger(Controlador.class.getName()).log(Level.SEVERE, null, ex);
             }
             aDAO.update(UpdateLambda.MODIFICAR_ALUMNO,conexion.getConexion(),aNuevo);
-        }
+       // }
     }
     
+    public void show(MatriculaAlumno ma){
+        if (ma != null)
+            vista.show(ma);
+    }
 }

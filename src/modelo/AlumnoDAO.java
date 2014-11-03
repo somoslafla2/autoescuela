@@ -44,14 +44,14 @@ public class AlumnoDAO {
     
     
     
-    public int create(CRUD crud, Connection con, MatriculaAlumno ma){
-        Integer i = (Integer) crud.accion(con, ma);
+    public int create(CRUD<MatriculaAlumno,Integer> crud, Connection con, MatriculaAlumno ma){
+        Integer i = crud.accion(con, ma);
         return i;
     }
     
-    public String resultTodo(CRUD crud, Connection con) {
+    public String resultTodo(CRUD<Object,ResultSet> crud, Connection con) {
         String cadena = "NOMBRE\tAPELLIDO1\tAPELLIDO2\tDNI\tTELEFONO\n";
-        ResultSet rs = (ResultSet) crud.accion(con,null);
+        ResultSet rs = crud.accion(con,null);
         try {
             while (rs.next()){
                 cadena += rs.getString("NOMBRE")+"\t" + rs.getString("APELLIDO1") + "\t"
@@ -64,40 +64,26 @@ public class AlumnoDAO {
         return cadena;
     }
     
-    public MatriculaAlumno resultAlumno(CRUD crud, Connection con, String dni){
+    public MatriculaAlumno resultAlumno(CRUD<Integer,MatriculaAlumno> crud, Connection con, String dni){
         Integer id = obtenerID(ObtenerIDLambda.RESULTID, con, dni);
         if (id != -1){
-            ma = (MatriculaAlumno) crud.accion(con, id);
-            //System.out.println(ma.toString());
+            ma = crud.accion(con, id);
             return ma;
         }
         return null;
     }
     
-    public boolean update(CRUD crud, Connection con, Alumno alumno){
-        return (boolean) crud.accion(con, alumno);
+    public boolean update(CRUD<Alumno, Boolean> crud, Connection con, Alumno alumno){
+        return crud.accion(con, alumno);
     }
     
-    public boolean delete (CRUD crud, Connection con, String dni){
+    public boolean delete (CRUD<Integer,Boolean> crud, Connection con, String dni){
         Integer id = obtenerID(ObtenerIDLambda.RESULTID, con, dni);        
-        return (boolean) crud.accion(con, id);
+        return crud.accion(con, id);
     }
     
-    public Integer obtenerID(CRUD crud, Connection con, String dni){        
-        return (Integer) crud.accion(con, dni);
+    public Integer obtenerID(CRUD<String,Integer> crud, Connection con, String dni){        
+        return crud.accion(con, dni);
     }
     
-    public void showAlumno(){
-        if (alumnos.size() == 1)
-            System.out.println("---------------------------------------------");
-            for (Alumno alumno : alumnos) {
-                System.out.println("Nombre: "+alumno.getNombre());
-                System.out.println("Apellidos: " + alumno.getApellido1() + " " + alumno.getApellido2());
-                System.out.println("DNI: "+alumno.getDni());
-                System.out.println("Telefono: "+alumno.getTelefono());
-                System.out.println("Tipo: "+((alumno instanceof AlumnoPresencial)?"PRESENCIAL":"A DISTANCIA"));
-                System.out.println("Fecha: "+alumno.getFechaNacimiento().getTime());
-            }
-            System.out.println("---------------------------------------------");
-    }
 }

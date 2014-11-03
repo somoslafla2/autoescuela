@@ -10,7 +10,7 @@
   </AccessibilityProperties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -138,7 +138,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldPrecioActionPerformed"/>
               </Events>
             </Component>
-            <Component class="vista.GUI.DatosAlumno" name="datosAlumno1">
+            <Component class="laboratorio12.DatosAlumno" name="datosAlumno1">
             </Component>
             <Component class="javax.swing.JButton" name="jButtonCrear">
               <Properties>
@@ -213,12 +213,11 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="vista.GUI.DatosAlumno" name="datosAlumno2">
+            <Component class="laboratorio12.DatosAlumno" name="datosAlumno2">
             </Component>
             <Component class="javax.swing.JButton" name="jButtonBorrar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Borrar"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBorrarActionPerformed"/>
@@ -235,7 +234,6 @@
             <Component class="javax.swing.JButton" name="jButtonModificar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modificar"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonModificarActionPerformed"/>

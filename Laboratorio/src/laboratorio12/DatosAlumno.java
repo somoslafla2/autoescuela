@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package vista.GUI;
+package laboratorio12;
 
 import controlador.Controlador;
 import javax.swing.JComboBox;
@@ -65,7 +65,6 @@ public class DatosAlumno extends javax.swing.JPanel implements InterfazVista{
 
     public JComboBox getjComboBoxtipodeAlumno() {
         return jComboBoxtipodeAlumno;
-
     }
 
     

@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista.GUI;
+package laboratorio12;
 
 import controlador.Controlador;
 import ester.autoescuela.carnet.TipoCarnet;
-import ester.autoescuela.factoriaAlumnos.alumno.AlumnoPresencial;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import javax.swing.JOptionPane;
 import modelo.MatriculaAlumno;
 import modelo.conexion.ConexionAutoescuela;
@@ -22,11 +19,11 @@ import vista.InterfazVista;
 public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista {
 
     private static final long serialVersionUID = -612577678585684133L;
-    private Controlador controlador;
-    private DatosAlumno activo;
-    private enum Pestania {
-        A, BM, C;
-    }
+    Controlador controlador;
+
+//    private enum Pestania {
+//        A, BM, C;
+//    }
     /**
      * Creates new form GestionAlumno
      */
@@ -39,70 +36,61 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
             jComboBoxTipoDeCarnet.addItem(carnet.name());
         }
         controlador.setVista(this);
-        activo = datosAlumno1;
     }
 
-    private void comprobar(){
-        if (jPanelGestionAlum.getModel().getSelectedIndex() == Pestania.BM.ordinal()){
-            activo = datosAlumno2;
-        }else {
-            activo = datosAlumno1;
-        }
-    }
-    
     @Override
     public void setId(int id) {
-        activo.getjTextFieldIdAlumno().setText(Integer.toString(id));
+        datosAlumno1.getjTextFieldIdAlumno().setText(Integer.toString(id));
     }
 
     @Override
     public String getNombre() {
-        return activo.getjTextFieldNombre().getText();
+        return datosAlumno1.getjTextFieldNombre().getText();
     }
 
     @Override
     public String getAp1() {
-        return activo.getjTextFieldPrimerApellido().getText();
+        return datosAlumno1.getjTextFieldPrimerApellido().getText();
     }
 
     @Override
     public String getAp2() {
-        return activo.getjTextFieldSegundoApellido().getText(); //To change body of generated methods, choose Tools | Templates.
+        return datosAlumno1.getjTextFieldSegundoApellido().getText(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getDNI() {
-        return activo.getjTextFieldDNI().getText(); //To change body of generated methods, choose Tools | Templates.
+        return datosAlumno1.getjTextFieldDNI().getText(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getDNI2() {
-        return activo.getjTextFieldDNI().getText(); //To change body of generated methods, choose Tools | Templates.
+        return datosAlumno2.getjTextFieldDNI().getText(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public String getTlfn() {
-        return activo.getjTextFieldTelefono().getText(); //To change body of generated methods, choose Tools | Templates.
+        return datosAlumno1.getjTextFieldTelefono().getText(); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int getDia() {
-        return Integer.parseInt(activo.getjTextFieldDia().getText()); //To change body of generated methods, choose Tools | Templates.
+        return Integer.parseInt(datosAlumno1.getjTextFieldDia().getText()); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int getMes() {
-        return Integer.parseInt(activo.getjTextFieldMes().getText()); //To change body of generated methods, choose Tools | Templates.
+        return Integer.parseInt(datosAlumno1.getjTextFieldMes().getText()); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int getAnio() {
-        return Integer.parseInt(activo.getjTextFieldAnnio().getText());  //To change body of generated methods, choose Tools | Templates.
+        return Integer.parseInt(datosAlumno1.getjTextFieldAnnio().getText());  //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean getPresencial() {
-        return activo.getjComboBoxtipodeAlumno().getSelectedItem().toString().equals("Presencial"); //To change body of generated methods, choose Tools | Templates.
+        return datosAlumno1.getjComboBoxtipodeAlumno().getSelectedItem().toString().equals("Presencial"); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -125,16 +113,7 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
         datosAlumno2.getjTextFieldDNI().setText(ma.getAlumno().getDni());
         datosAlumno2.getjTextFieldTelefono().setText(ma.getAlumno().getTelefono());
         datosAlumno2.getjTextFieldTelefono().setText(ma.getAlumno().getTelefono());
-        Calendar c = ma.getAlumno().getFechaNacimiento();
-        datosAlumno2.getjTextFieldDia().setText(Integer.toString(c.get(Calendar.DAY_OF_MONTH)));
-        datosAlumno2.getjTextFieldMes().setText(Integer.toString(c.get(Calendar.MONTH)+1));
-        datosAlumno2.getjTextFieldAnnio().setText(Integer.toString(c.get(Calendar.YEAR)));
-        datosAlumno2.getjComboBoxtipodeAlumno().getModel().setSelectedItem(
-                ((ma.getAlumno() instanceof AlumnoPresencial) ? "Presencial" : "A distancia"));
-        String fecha = (ma.getFechaAlta().get(Calendar.DAY_OF_MONTH))+"/"
-                + (ma.getFechaAlta().get(Calendar.MONTH)+1) + "/"
-                + (ma.getFechaAlta().get(Calendar.YEAR));
-        jTextTabla.setText(ma.getCarnet().name()+"; Fecha Alta: "+fecha);
+        
     }
     
     
@@ -154,12 +133,12 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
         jComboBoxTipoDeCarnet = new javax.swing.JComboBox();
         jLabelPrecio = new javax.swing.JLabel();
         jTextFieldPrecio = new javax.swing.JTextField();
-        datosAlumno1 = new vista.GUI.DatosAlumno();
+        datosAlumno1 = new laboratorio12.DatosAlumno();
         jButtonCrear = new javax.swing.JButton();
         jPanelBajasYModif = new javax.swing.JPanel();
         jScrollInfoTabla = new javax.swing.JScrollPane();
         jTextTabla = new javax.swing.JTextArea();
-        datosAlumno2 = new vista.GUI.DatosAlumno();
+        datosAlumno2 = new laboratorio12.DatosAlumno();
         jButtonBorrar = new javax.swing.JButton();
         jButtonBuscar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
@@ -244,7 +223,6 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
         jScrollInfoTabla.setViewportView(jTextTabla);
 
         jButtonBorrar.setText("Borrar");
-        jButtonBorrar.setEnabled(false);
         jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBorrarActionPerformed(evt);
@@ -259,7 +237,6 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
         });
 
         jButtonModificar.setText("Modificar");
-        jButtonModificar.setEnabled(false);
         jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonModificarActionPerformed(evt);
@@ -355,16 +332,12 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
         getAccessibleContext().setAccessibleDescription("");
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearActionPerformed
        // Crear Alumno
-        int x = JOptionPane.showConfirmDialog(null, "¿Desea dar de alta a este alumno?", "Alta de alumno", JOptionPane.OK_CANCEL_OPTION);
-        if (x == JOptionPane.OK_OPTION) {
-            comprobar();
-            controlador.crear();
-        }
+        JOptionPane.showConfirmDialog(null, "¿Desea dar de alta a este alumno?", "Alta de alumno", JOptionPane.OK_CANCEL_OPTION);
+        controlador.crear();
     }//GEN-LAST:event_jButtonCrearActionPerformed
 
     private void jComboBoxTipoDeCarnetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoDeCarnetActionPerformed
@@ -388,39 +361,22 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
     // Borrar un alumno, tras haberlo localizado a través de su DNI
     // Este botón permanece desactivado hasta que el usuario introduce un DNI
 
-       int x= JOptionPane.showConfirmDialog(null, "¿Seguro que quieres borrar este dato?", "eliminar dato", JOptionPane.OK_CANCEL_OPTION);
-        if  (x==JOptionPane.OK_OPTION){
-            comprobar();
-            controlador.borrar();
-        }
+        JOptionPane.showConfirmDialog(null, "¿Seguro que quieres borrar este dato?", "eliminar dato", JOptionPane.OK_CANCEL_OPTION);
+        controlador.borrar();
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // Busca a través del DNI los datos de un alumno 
-        int i= 0;
+
         String dni
                 = JOptionPane.showInputDialog("Introducir DNI");
-
-      //  if(JOptionPane.CANCEL_OPTION != 2){
-            jButtonBorrar.setEnabled(true);
-            jButtonModificar.setEnabled(true);
-            
-            
-            controlador.show(controlador.consultar(dni));
-       // }
-        
+        controlador.consultar(dni);
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // Modifica los datos de un alumno, tras haberlo localizado a través de su DNI
         //Este botón permanece desactivado hasta que el usuario introduce un DNI
-       int x= JOptionPane.showConfirmDialog(null, "¿Desea guardar las modificaciones realizadas?", "confirmar modificaciones", JOptionPane.OK_CANCEL_OPTION);
-       if (x==JOptionPane.OK_OPTION){
-           comprobar();
-           controlador.actualizar();
-         
-          
-       }
+        JOptionPane.showConfirmDialog(null, "¿Desea guardar las modificaciones realizadas?", "confirmar modificaciones", JOptionPane.OK_CANCEL_OPTION);
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     /**
@@ -459,8 +415,8 @@ public class GestionAlumnos extends javax.swing.JFrame implements InterfazVista 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private vista.GUI.DatosAlumno datosAlumno1;
-    private vista.GUI.DatosAlumno datosAlumno2;
+    private laboratorio12.DatosAlumno datosAlumno1;
+    private laboratorio12.DatosAlumno datosAlumno2;
     private javax.swing.JButton jButtonBorrar;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonCrear;
