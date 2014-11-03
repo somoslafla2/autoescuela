@@ -20,7 +20,7 @@ import modelo.llamadas.Llamadas;
  * @author Oscar
  */
 public class UpdateLambda {
-    public static Update<Alumno, Boolean> MODIFICAR_ALUMNO = (Connection con, Alumno alumno)->{
+    public static Update<Alumno,Boolean> MODIFICAR_ALUMNO = (Connection con, Alumno alumno)->{
         //Damos valor a los argumentos
         boolean exito = false;
         CallableStatement llamada;
@@ -50,6 +50,7 @@ public class UpdateLambda {
                 System.out.println("las filas afectadas son: " + filas_afectadas);
                 exito = true;
             }
+            llamada.close();
         }catch(SQLException ex){
             ex.printStackTrace();
         }
