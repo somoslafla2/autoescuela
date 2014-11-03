@@ -8,7 +8,8 @@ package modelo;
 
 import ester.autoescuela.carnet.TipoCarnet;
 import ester.autoescuela.factoriaAlumnos.alumno.Alumno;
-import java.util.Collection;
+import ester.autoescuela.factoriaAlumnos.alumno.AlumnoPresencial;
+import java.util.Calendar;
 
 /**
  *
@@ -16,11 +17,12 @@ import java.util.Collection;
  */
 public class MatriculaAlumno {
     private Alumno alumno;
-    private Collection<TipoCarnet> carnets;
+    private TipoCarnet carnet;
+    private Calendar fechaAlta;
 
-    public MatriculaAlumno(Alumno alumno, Collection<TipoCarnet> carnet) {
+    public MatriculaAlumno(Alumno alumno, TipoCarnet carnet) {
         this.alumno = alumno;
-        this.carnets = carnet;
+        this.carnet = carnet;
     }
 
     public Alumno getAlumno() {
@@ -31,15 +33,40 @@ public class MatriculaAlumno {
         this.alumno = alumno;
     }
 
-    public Collection<TipoCarnet> getCarnets() {
-        return carnets;
+    public TipoCarnet getCarnet() {
+        return carnet;
     }
 
-    public void setCarnets(Collection<TipoCarnet> carnet) {
-        this.carnets = carnet;
+    public void setCarnets(TipoCarnet carnet) {
+        this.carnet = carnet;
+    }
+
+    public Calendar getFechaAlta() {
+        return fechaAlta;
+    }
+
+    public void setFechaAlta(Calendar fechaAlta) {
+        this.fechaAlta = fechaAlta;
     }
     
-    public boolean add(TipoCarnet carnet){
-        return  carnets.add(carnet);
+    
+
+    @Override
+    public String toString() {
+        String fecha = (fechaAlta.get(Calendar.MONTH)+1)+"/"
+                + (fechaAlta.get(Calendar.DAY_OF_MONTH)) + "/"
+                + (fechaAlta.get(Calendar.YEAR));
+        
+        return "--------------------------------------------------\n"
+                + "Nombre: " + alumno.getNombre() + '\n' 
+                + "Apellidos: "+ alumno.getApellido1() + ' ' + alumno.getApellido2() + '\n'
+                + "DNI: " + alumno.getDni() + '\n' 
+                + "Fecha Nacimiento: " + alumno.fechaToString()+ '\n'
+                + "Telefono: " + alumno.getTelefono() + '\n'
+                + "Tipo: " + (alumno instanceof AlumnoPresencial ? "PRESENCIAL" : "A DISTANCIA")
+                + "\nMATRICULAS --------------------------------------\n"
+                + "- " + carnet.name() + " Fecha Alta: " + fecha + " Precio: " + carnet.getPrecio();
     }
+    
+    
 }

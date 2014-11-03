@@ -68,7 +68,7 @@ public class CreateLambda {
                 llamada.setString(6, mA.getAlumno().getTelefono());
                 llamada.setString(7, (mA.getAlumno() instanceof AlumnoPresencial ? "PRESENCIAL" : "A DISTANCIA"));
                 llamada.setString(8, mA.getAlumno().fechaToString());
-                TipoCarnet c = (TipoCarnet) ((ArrayList)mA.getCarnets()).get(0);
+                TipoCarnet c = mA.getCarnet();
                 llamada.setString(9, c.name());
                 llamada.setFloat(10, c.getPrecio());
 

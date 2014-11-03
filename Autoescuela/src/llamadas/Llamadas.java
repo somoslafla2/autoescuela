@@ -17,8 +17,10 @@ public class Llamadas {
     public static final String BORRAR_ALUMNO = "{call BORRARALUMNO(?)}";
     public static final String OBTENERIDALUMNO = "{? = call OBTENERIDALUMNO(?)}";
     public static final String CONSULTAR_TODO = "SELECT NOMBRE, APELLIDO1, APELLIDO2, DNI, TELEFONO FROM ALUMNO";
-//    public final String
-//    public final String
+    public static final String SACAR_ALUMNO_DNI = "{?=call SACARALUMNOPORDNI(?,?,?,?,?,?,?)}";
+    public static final String SACAR_ALUMNO_ID = "{?=call SACAR(?,?,?,?,?,?,?)}";
+    public static final String MODIFICAR_ALUMNO = "{call MODIFICARALUMNO(?,?,?,?,?,?,?,?)}";
+
 //    public final String
 //    public final String
 //    public final String

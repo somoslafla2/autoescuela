@@ -6,15 +6,12 @@
 
 package modelo;
 
-import ester.autoescuela.excepciones.AlumnoMalFormado;
 import ester.autoescuela.factoriaAlumnos.alumno.Alumno;
 import ester.autoescuela.factoriaAlumnos.alumno.AlumnoPresencial;
-import ester.autoescuela.factoriaAlumnos.factoria.CreadorAlumnoDistancia;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.interfaces.CRUD;
@@ -26,15 +23,11 @@ import modelo.lambdas.ObtenerIDLambda;
  */
 public class AlumnoDAO {
     
-    private Alumno alumnoDoomi;
     private Collection<Alumno> alumnos;
+    private MatriculaAlumno ma;
 
     public AlumnoDAO(Collection<Alumno> alumnos) {
         this.alumnos = alumnos;
-        try {
-            alumnoDoomi = new CreadorAlumnoDistancia().crearAlumno("a", "a", "a", "a", "a", new GregorianCalendar());
-        } catch (AlumnoMalFormado ex) {
-        }
     }
 
     public Collection<Alumno> getAlumnos() {
@@ -44,6 +37,12 @@ public class AlumnoDAO {
     public void setAlumnos(Collection<Alumno> alumnos) {
         this.alumnos = alumnos;
     }
+
+    public MatriculaAlumno getMa() {
+        return ma;
+    }
+    
+    
     
     public int create(CRUD crud, Connection con, MatriculaAlumno ma){
         Integer i = (Integer) crud.accion(con, ma);
@@ -65,12 +64,18 @@ public class AlumnoDAO {
         return cadena;
     }
     
-    public boolean resultAlumno(Connection con, String dni){
-        return true;
+    public boolean resultAlumno(CRUD crud, Connection con, String dni){
+        Integer id = obtenerID(ObtenerIDLambda.RESULTID, con, dni);
+        if (id != -1){
+            ma = (MatriculaAlumno) crud.accion(con, id);
+            System.out.println(ma.toString());
+            return true;
+        }
+        return false;
     }
     
-    public boolean update(Connection con, Alumno alumno, Alumno aNuevo){
-        return true;
+    public boolean update(CRUD crud, Connection con, Alumno alumno){
+        return (boolean) crud.accion(con, alumno);
     }
     
     public boolean delete (CRUD crud, Connection con, String dni){
