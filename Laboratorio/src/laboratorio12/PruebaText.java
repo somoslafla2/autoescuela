@@ -76,7 +76,7 @@ public class PruebaText extends javax.swing.JFrame {
         // TODO add your handling code here:
         String s = jTextField1.getText();
         System.out.println(s);
-        s = jTextField2.getText();
+        jTextField2.setText(s);
         System.out.println(s);
     }//GEN-LAST:event_jButton1ActionPerformed
 

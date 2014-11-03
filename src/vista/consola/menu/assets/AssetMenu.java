@@ -50,6 +50,7 @@ public class AssetMenu {
         
         action = () -> { 
             System.out.println("Actualizo los datos de un alumno de la autoescuela\n");
+            controlador.show(controlador.consultar(null));
             controlador.actualizar();
             return m;
         };
@@ -86,7 +87,7 @@ public class AssetMenu {
         
         action = () -> {
             System.out.println("Consulto por algun criterio");
-            controlador.consultar(null);
+            controlador.show(controlador.consultar(null));
             return m;  
         };
         m.createOption("1. Consultar por DNI", action);
